@@ -317,7 +317,7 @@ p {
   color: #fff;
 }
 .navbar-area.sticky {
-  background: linear-gradient(90deg, #A6080E 0%, #D11101 100%);;
+  background: linear-gradient(90deg, #a6080e 0%, #d11101 100%);
   z-index: 999;
   position: fixed;
   -webkit-box-shadow: 0px 10px 25px 0px rgba(18, 18, 18, 0.05);
@@ -611,7 +611,7 @@ p {
   font-weight: 900;
   font-size: 130px;
   line-height: 132px;
-  background: linear-gradient(180deg, #FFD964 33.65%, #A27339 83.44%);
+  background: linear-gradient(180deg, #ffd964 33.65%, #a27339 83.44%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-family: "Inter", sans-serif;
@@ -670,7 +670,7 @@ p {
   overflow: hidden;
   background-image: url(../images/Desk-bg.jpg);
   background-position: center;
-  position: relative; 
+  position: relative;
   height: 100vh;
 }
 .slider-wrapper {
@@ -3297,157 +3297,177 @@ footer {
   }
 }
 
+.slider {
+  position: relative;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+  overflow: hidden;
+  border-radius: 10px;
+}
 
+.slider-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 40px) / 3);
+  gap: 20px;
+  transition: transform 0.5s ease;
+}
 
-    /* Slider wrapper */
-    .slider {
-      position: relative;
-      width: 100%;
-      max-width: 1200px;
-      margin: auto;
-      overflow: hidden;
-      border-radius: 10px;
-    }
-    
-    /* Grid slider-track */
-    .slider-track {
-      display: grid;
-      grid-auto-flow: column;
-      grid-auto-columns: calc((100% - 40px) / 3);
-      gap: 20px;
-      transition: transform 0.5s ease;
-    }
-    
-    /* Slide sa zaključanim (future) datumom – lock ikonica */
-    .slide.no-click {
-      position: relative;
-    }
-    .slide.no-click::after {
-      content: "";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 80px;
-      height: 80px;
-      background: url('../../img/lock.png') no-repeat center center;
-      background-size: contain;
-      z-index: 10;
-      pointer-events: none;
-    }
-    
-    /* Strelice – samo desktop */
-    @media (min-width: 769px) {
-      .arrows {
-        position: absolute;
-        top: 50%;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        transform: translateY(-50%);
-        pointer-events: none;
-      }
-      .arrow {
-        cursor: pointer;
-        color: #fff;
-        font-size: 3rem;
-        padding: 10px;
-        margin: 0 15px;
-        border-radius: 50%;
-        user-select: none;
-        transition: background 0.3s;
-        pointer-events: auto;
-      }
-    }
-    
-    /* Info container */
-    #slide-info {
-      text-align: center;
-      margin-top: 38px;
-      font-family: sans-serif;
-      color: #fff;
-    }
-    #slide-info .date {
-      font-family: Inter;
-      font-weight: 600;
-      font-size: 24px;
-      line-height: 28px;
-      text-align: center;
-      color: #FFD964;
-      margin-bottom: 10px;
-    }
-    #slide-info .title {
-      font-family: Inter;
-      font-weight: 800;
-      font-style: italic;
-      font-size: 32px;
-      line-height: 32px;
-      text-align: center;
-      color: #FFFFFF;
-    }
-    
-    /* Osnovni stilovi za slide */
-    .slide {
-      cursor: pointer;
-      position: relative;
-      overflow: hidden;
-    }
-    .slide.left {
-      pointer-events: none;
-    }
-    .slide.right {
-      pointer-events: none;
-    }
-    
-    /* Sadržaj pozadinske slike – filter se primenjuje SAMO ovde */
-    .slide-bg {
-      width: 100%;
-      height: 100%;
-      filter: grayscale(100%) blur(3px);
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
-      z-index: 1;
-    }
-    
-    /* Media queries za grid kolone i visinu slajda */
-    @media (min-width: 769px) {
-      .slider-track { grid-auto-columns: calc((100% - 40px) / 3); }
-      .slide { height: 490px; }
-    }
-    @media (max-width: 768px) and (min-width: 481px) {
-      .slider-track { grid-auto-columns: calc((100% - 20px) / 2); gap: 20px; }
-      .slide { height: 350px; }
-      .slide-bg { background-size: cover; }
-    }
-    @media (max-width: 480px) {
-      .slider-track { grid-auto-columns: 100%; gap: 0; }
-      .slide { height: 490px; }
-      .slide-bg { background-size: cover; }
-    }
-    @media (max-width: 768px) {
-      .arrows { display: none; }
-    }
-    
-    /* Dodatni desktop stilovi za slide-bg */
-    @media (min-width: 769px) {
-      .slide:not(.center) .slide-bg { filter: grayscale(100%) blur(3px); border-radius: 10px; }
-      .slide.center:not(.no-click) .slide-bg { filter: none; border-radius: 0; }
-      .slide.center.no-click .slide-bg { filter: grayscale(100%) blur(3px); }
-      .slide.left:not(.center):not(.no-click)::after,
-      .slide.right:not(.center):not(.no-click)::after {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-      }
-    }
-    
-    /* Tablet i mobil dodatno – onemogućavanje filtera na aktivnim slajdovima */
-    @media (max-width: 768px) {
-      .slide:not(.no-click) .slide-bg { filter: none; }
-      .slide.no-click .slide-bg { filter: grayscale(100%); }
-    }
+.slide.no-click {
+  position: relative;
+}
+.slide.no-click::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+  height: 80px;
+  background: url("../../img/lock.png") no-repeat center center;
+  background-size: contain;
+  z-index: 10;
+  pointer-events: none;
+}
+
+@media (min-width: 769px) {
+  .arrows {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  .arrow {
+    cursor: pointer;
+    color: #fff;
+    font-size: 3rem;
+    padding: 10px;
+    margin: 0 15px;
+    border-radius: 50%;
+    user-select: none;
+    transition: background 0.3s;
+    pointer-events: auto;
+  }
+}
+
+#slide-info {
+  text-align: center;
+  margin-top: 38px;
+  font-family: sans-serif;
+  color: #fff;
+}
+#slide-info .date {
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 28px;
+  text-align: center;
+  color: #ffd964;
+  margin-bottom: 10px;
+}
+#slide-info .title {
+  font-family: Inter;
+  font-weight: 800;
+  font-style: italic;
+  font-size: 32px;
+  line-height: 32px;
+  text-align: center;
+  color: #ffffff;
+}
+
+.slide {
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+.slide.left {
+  pointer-events: none;
+}
+.slide.right {
+  pointer-events: none;
+}
+
+.slide-bg {
+  width: 100%;
+  height: 100%;
+  filter: grayscale(100%) blur(3px);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+@media (min-width: 769px) {
+  .slider-track {
+    grid-auto-columns: calc((100% - 40px) / 3);
+  }
+  .slide {
+    height: 490px;
+  }
+}
+@media (max-width: 768px) and (min-width: 481px) {
+  .slider-track {
+    grid-auto-columns: calc((100% - 20px) / 2);
+    gap: 20px;
+  }
+  .slide {
+    height: 350px;
+  }
+  .slide-bg {
+    background-size: cover;
+  }
+}
+@media (max-width: 480px) {
+  .slider-track {
+    grid-auto-columns: 100%;
+    gap: 0;
+  }
+  .slide {
+    height: 490px;
+  }
+  .slide-bg {
+    background-size: cover;
+  }
+}
+@media (max-width: 768px) {
+  .arrows {
+    display: none;
+  }
+}
+
+@media (min-width: 769px) {
+  .slide:not(.center) .slide-bg {
+    filter: grayscale(100%) blur(3px);
+    border-radius: 10px;
+  }
+  .slide.center:not(.no-click) .slide-bg {
+    filter: none;
+    border-radius: 0;
+  }
+  .slide.center.no-click .slide-bg {
+    filter: grayscale(100%) blur(3px);
+  }
+  .slide.left:not(.center):not(.no-click)::after,
+  .slide.right:not(.center):not(.no-click)::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .slide:not(.no-click) .slide-bg {
+    filter: none;
+  }
+  .slide.no-click .slide-bg {
+    filter: grayscale(100%);
+  }
+}

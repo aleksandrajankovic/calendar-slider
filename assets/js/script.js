@@ -1,6 +1,6 @@
 import promotions from "./promotions.js";
 
-// Modal toggle funkcija
+
 let isAnimating = false;
 function togglePopup() {
   const modal = document.getElementById("modal");
@@ -24,13 +24,13 @@ function togglePopup() {
 }
 window.togglePopup = togglePopup;
 
-// Datumi promocije
+
 const promotionStartDate = new Date(2025, 3, 1);
 const promotionEndDate = new Date(2025, 3, 30);
 const originalCount =
   promotionEndDate.getDate() - promotionStartDate.getDate() + 1;
 
-// Generiši slider iz promocija
+
 function generateCalendarSlider() {
   const sliderTrack = document.querySelector(".slider-track");
   sliderTrack.innerHTML = "";
@@ -65,7 +65,7 @@ function generateCalendarSlider() {
   }
 }
 
-// Kloniraj slideove samo za desktop (slidesToShow > 1)
+
 function cloneSlides(slidesToShow) {
   if (slidesToShow === 1) return;
   const sliderTrack = document.querySelector(".slider-track");
@@ -83,14 +83,14 @@ function cloneSlides(slidesToShow) {
   });
 }
 
-// Click handler za modal popup
+
 document.querySelector(".slider-track").addEventListener("click", function (e) {
   const slide = e.target.closest(".slide");
   if (!slide) return;
   if (window.innerWidth >= 769) {
     if (!slide.classList.contains("center")) return;
   } else {
-    // Na mobil/tabla, dozvoli klik ako slide NIJE zaključan
+
     if (slide.classList.contains("no-click")) return;
   }
   const dayNumber = parseInt(slide.dataset.day, 10);
@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const track = document.querySelector(".slider-track");
   let slides = document.querySelectorAll(".slide");
 
-  // Inicijalizacija currentIndex:
+
   let currentIndex = slidesToShow === 1 ? 0 : slidesToShow;
   const today = new Date();
   if (today >= promotionStartDate && today <= promotionEndDate) {
@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log("Initial currentIndex:", currentIndex);
 
   function updateSlider() {
-    // Na mobil odmah modulo uveravamo currentIndex da bude u [0, originalCount-1]
+
     if (slidesToShow === 1) {
       currentIndex =
         ((currentIndex % originalCount) + originalCount) % originalCount;
@@ -210,7 +210,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const firstIndex = currentIndex;
         const dayText = `${slides[firstIndex].dataset.day}. april 2025`;
         const titleText = slides[firstIndex].dataset.title || "";
-        // Za mobil/tabla: čak i ako je zaključan (no-click), prikaži datum
+   
         info.innerHTML = `<div class="slide-info"><span class="date">${dayText}</span>${
           slides[firstIndex].classList.contains("no-click")
             ? ""
@@ -225,16 +225,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
   updateSlider();
 
-  // Transitionend handler – unificirana logika za infinite wrap-around za sve uređaje
+
   track.addEventListener("transitionend", () => {
     slides = document.querySelectorAll(".slide");
     let minIndex, maxIndex;
     if (slidesToShow === 1) {
-      // Mobil: validni indeksi 0 ... originalCount - 1
+  
       minIndex = 0;
       maxIndex = originalCount - 1;
     } else {
-      // Desktop: validni indeksi slidesToShow ... slidesToShow + originalCount - 1
+
       minIndex = slidesToShow;
       maxIndex = slidesToShow + originalCount - 1;
     }
@@ -281,7 +281,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  // Swipe gestovi – registruj na .slider kako bi slušali sve touch događaje
+
   if (window.innerWidth <= 768) {
     let startX = 0,
       endX = 0;
@@ -294,7 +294,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const delta = startX - endX;
       if (Math.abs(delta) > swipeThresh) {
         currentIndex += delta > 0 ? 1 : -1;
-        // Primeni modulo odmah
+   
         currentIndex =
           ((currentIndex % originalCount) + originalCount) % originalCount;
         console.log("Touch swipe: new currentIndex:", currentIndex);
@@ -311,7 +311,7 @@ document.addEventListener("DOMContentLoaded", function () {
       clearTimeout(resizeTimeout);
       resizeTimeout = setTimeout(() => {
         window.location.reload();
-      }, 300); // reload nakon 300ms ako se širina stabilizuje
+      }, 300);
     }
   });
   
