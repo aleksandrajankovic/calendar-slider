@@ -306,9 +306,13 @@ document.addEventListener("DOMContentLoaded", function () {
   track.style.transition = "transform 0.5s ease";
   let resizeTimeout;
   window.addEventListener("resize", () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      window.location.reload();
-    }, 300);
+    if (window.innerWidth !== lastWindowWidth) {
+      lastWindowWidth = window.innerWidth;
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        window.location.reload();
+      }, 300); // reload nakon 300ms ako se širina stabilizuje
+    }
   });
+  
 });
