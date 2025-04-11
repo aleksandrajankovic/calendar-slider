@@ -198,7 +198,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const info = document.getElementById("slide-info");
       if (info && centerIndex < slides.length) {
-        const dayText = `${slides[centerIndex].dataset.day}. april`;
+        const dayText = `${slides[centerIndex].dataset.day}. </br>april`;
         const titleText = slides[centerIndex].dataset.title || "";
         info.innerHTML = slides[centerIndex].classList.contains("no-click")
           ? `<div class="slide-info"><span class="date">${dayText}</span></div>`
@@ -208,7 +208,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const info = document.getElementById("slide-info");
       if (info) {
         const firstIndex = currentIndex;
-        const dayText = `${slides[firstIndex].dataset.day}. april 2025`;
+        const dayText = `${slides[firstIndex].dataset.day}. <br/>april`;
         const titleText = slides[firstIndex].dataset.title || "";
    
         info.innerHTML = `<div class="slide-info"><span class="date">${dayText}</span>${
