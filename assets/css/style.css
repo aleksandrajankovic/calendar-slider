@@ -1892,6 +1892,7 @@ footer {
     font-size: 50px;
     line-height: 52px;
   }
+
 }
 @media only screen and (max-width: 1000px) and (min-width: 768px) {
   #modal {
@@ -2052,21 +2053,14 @@ footer {
     background-image: url(../images/Mobile-bg.png);
   }
   .calendar-title-2 {
-
-font-size: 30px;
-line-height: 48.13px;
-letter-spacing: 4.38px;
-
-
+    font-size: 30px;
+    line-height: 48.13px;
+    letter-spacing: 4.38px;
   }
   .calendar-title {
-
     font-size: 64px;
     line-height: normal;
-  
-    
-    
-      }
+  }
 }
 @media screen and (max-width: 440px) {
   .links {
@@ -2084,7 +2078,6 @@ letter-spacing: 4.38px;
 }
 
 @media (max-width: 376px) {
-
   .navbar-brand img {
     display: none;
   }
@@ -3306,6 +3299,7 @@ letter-spacing: 4.38px;
   }
 }
 
+/* Slider wrapper */
 .slider {
   position: relative;
   width: 100%;
@@ -3315,17 +3309,57 @@ letter-spacing: 4.38px;
   border-radius: 10px;
 }
 
+/* Grid slider-track */
 .slider-track {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: calc((100% - 40px) / 3);
-  gap: 20px;
   transition: transform 0.5s ease;
 }
-
-.slide.no-click {
-  position: relative;
+/* Ako je širina ≥ 480px (tablet/desktop), koristimo 3 kolone */
+@media (min-width: 480px) {
+  .slider-track {
+    grid-auto-columns: calc((100% - 40px) / 3);
+    gap: 20px;
+  }
 }
+/* Mobil (<480px) */
+@media (max-width: 479px) {
+  .slider-track {
+    grid-auto-columns: 100%;
+    gap: 0;
+  }
+}
+
+/* Slide osnovni stilovi */
+.slide {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  border-radius: 10px;
+}
+.slide.left, .slide.right {
+  pointer-events: none;
+}
+/* Visina slajdova */
+@media (min-width: 480px) {
+  .slide { height: 490px; }
+}
+@media (max-width: 479px) {
+  .slide { height: 490px; }
+}
+
+/* Pozadinska slika – filter se primenjuje SAMO ovde */
+.slide-bg {
+  width: 100%;
+  height: 100%;
+  filter: grayscale(100%) blur(3px);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+}
+
+/* Lock ikonica za buduće (no-click) slideove */
 .slide.no-click::after {
   content: "";
   position: absolute;
@@ -3340,33 +3374,33 @@ letter-spacing: 4.38px;
   pointer-events: none;
 }
 
-@media (min-width: 769px) {
-  .arrows {
-    position: absolute;
-    top: 50%;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    transform: translateY(-50%);
-    pointer-events: none;
-  }
-  .arrow {
-    cursor: pointer;
-    color: #fff;
-    font-size: 3rem;
-    padding: 10px;
-    margin: 0 15px;
-    border-radius: 50%;
-    user-select: none;
-    transition: background 0.3s;
-    pointer-events: auto;
-  }
+/* Desktop/Tablet (širina ≥480px): koristimo 3 slajda s infinite logikom */
+@media (min-width: 480px) {
+  /* Ako slide NIJE u fokusu, pozadinska slika ima filter */
+  .slide:not(.center) .slide-bg { filter: grayscale(100%) blur(3px); }
+  /* Centralni slide – ako nije zaključan, nema filter */
+  .slide.center:not(.no-click) .slide-bg { filter: none; }
 }
 
+/* Na mobil (<480px): prikaz 1 slide, bez filtera na aktivnim */
+@media (max-width: 479px) {
+  .slide:not(.no-click) .slide-bg { filter: none; }
+  .slide.no-click .slide-bg { filter: grayscale(100%); }
+  .slider-wrapper {
+    width: 100%;
+}
+}
+
+/* Info container */
 #slide-info {
   text-align: center;
   font-family: sans-serif;
   color: #fff;
+}
+.slide-info {
+  position: relative;
+  z-index: 1000;
+  margin-top: -30px;
 }
 #slide-info .date {
   font-family: Inter;
@@ -3390,109 +3424,40 @@ letter-spacing: 4.38px;
   line-height: 32px;
   text-align: center;
   color: #ffffff;
-  text-wrap: wrap;
-}
-.slide-info {
-  display: inline-block;
-    width: 30%;
-    margin-top: -30px;
-    z-index: 1000;
-    position: relative;
-}
-.slide {
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  border-radius: 10px;
-}
-.slide.left {
-  pointer-events: none;
-}
-.slide.right {
-  pointer-events: none;
 }
 
-.slide-bg {
-  width: 100%;
-  height: 100%;
-  filter: grayscale(100%) blur(3px);
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  z-index: 1;
-}
-
+/* Strelice – samo za desktop (širina ≥ 769px) */
 @media (min-width: 769px) {
-  .slider-track {
-    grid-auto-columns: calc((100% - 40px) / 3);
-  }
-  .slide {
-    height: 490px;
-  }
-}
-@media (max-width: 768px) and (min-width: 481px) {
-  .slider-track {
-    grid-auto-columns: calc((100% - 20px) / 2);
-    gap: 20px;
-  }
-  .slide {
-    height: 350px;
-  }
-  .slide-bg {
-    background-size: cover;
-  }
-}
-@media (max-width: 480px) {
-  .slider-track {
-    grid-auto-columns: 100%;
-    gap: 0;
-  }
-  .slide {
-    height: 490px;
-  }
-  .slide-bg {
-    background-size: cover;
-  }
-  .slide-info {
-    
-    width: 90%;
-  }
-}
-@media (max-width: 768px) {
   .arrows {
-    display: none;
-  }
-}
-
-@media (min-width: 769px) {
-  .slide:not(.center) .slide-bg {
-    filter: grayscale(100%) blur(3px);
-    border-radius: 10px;
-  }
-  .slide.center:not(.no-click) .slide-bg {
-    filter: none;
-    border-radius: 0;
-  }
-  .slide.center.no-click .slide-bg {
-    filter: grayscale(100%) blur(3px);
-  }
-  .slide.left:not(.center):not(.no-click)::after,
-  .slide.right:not(.center):not(.no-click)::after {
-    content: "";
     position: absolute;
-    top: 0;
-    left: 0;
+    top: 50%;
     width: 100%;
-    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    transform: translateY(-50%);
     pointer-events: none;
   }
-}
-
-@media (max-width: 768px) {
-  .slide:not(.no-click) .slide-bg {
-    filter: none;
+  .arrow {
+    cursor: pointer;
+    color: #fff;
+    font-size: 3rem;
+    padding: 10px;
+    margin: 0 15px;
+    border-radius: 50%;
+    user-select: none;
+    transition: background 0.3s;
+    pointer-events: auto;
   }
-  .slide.no-click .slide-bg {
-    filter: grayscale(100%);
+}
+@media (max-width: 768px) {
+  .arrows { display: none; }
+ 
+}
+@media (min-width: 480px) and (max-width: 1200px) {
+  .slide-bg {
+    background-size: cover !important;
+  }
+  .slider-wrapper {
+    width: 100%;
   }
 }
