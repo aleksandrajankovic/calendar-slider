@@ -1990,7 +1990,7 @@ footer {
     line-height: 55px;
   }
   .calendar-box {
-    margin: 6.8rem auto 1rem auto;
+    margin: 4.8rem auto 1rem auto;
   }
   .gift {
     background-image: url(../../img/gift.png);
@@ -2056,6 +2056,7 @@ footer {
     font-size: 30px;
     line-height: 48.13px;
     letter-spacing: 4.38px;
+    font-style: normal;
   }
   .calendar-title {
     font-size: 64px;
