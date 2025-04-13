@@ -1,6 +1,5 @@
 import promotions from "./promotions.js";
     
-/* Modal toggle funkcija */
 let isAnimating = false;
 function togglePopup() {
   const modal = document.getElementById("modal");
@@ -29,7 +28,7 @@ const promotionStartDate = new Date(2025, 3, 1);
 const promotionEndDate = new Date(2025, 3, 30);
 const originalCount = promotionEndDate.getDate() - promotionStartDate.getDate() + 1;
 
-/* Generiši slider */
+
 function generateCalendarSlider() {
   const sliderTrack = document.querySelector(".slider-track");
   sliderTrack.innerHTML = "";
@@ -59,7 +58,7 @@ function generateCalendarSlider() {
   }
 }
 
-/* Kloniraj slideove – samo za desktop (slidesToShow > 1) */
+
 function cloneSlides(slidesToShow) {
   if (slidesToShow === 1) return;
   const sliderTrack = document.querySelector(".slider-track");
@@ -76,14 +75,14 @@ function cloneSlides(slidesToShow) {
   });
 }
 
-/* Click handler za modal popup */
+
 document.querySelector(".slider-track").addEventListener("click", function(e) {
   const slide = e.target.closest(".slide");
   if (!slide) return;
   if (window.innerWidth >= 769) {
     if (!slide.classList.contains("center")) return;
   } else {
-    // Na mobil/tabla – uvijek dozvoli klik, kako bi se vidio datum
+
   }
   const dayNumber = parseInt(slide.dataset.day, 10);
   const promoIndex = (dayNumber - promotionStartDate.getDate()) % promotions.length;
@@ -129,16 +128,14 @@ document.querySelector(".slider-track").addEventListener("click", function(e) {
 
 document.addEventListener("DOMContentLoaded", function() {
   generateCalendarSlider();
-  // Za tablet/desktop: slidesToShow = 3; za mobil (širina <480px) = 1
+
   const slidesToShow = window.innerWidth < 480 ? 1 : 3;
   cloneSlides(slidesToShow);
 
   const track = document.querySelector(".slider-track");
   let slides = document.querySelectorAll(".slide");
 
-  // Inicijalizacija currentIndex: 
-  // Na desktop, currentIndex se postavlja tako da originalni slideovi budu od indexa 3 do 3+originalCount-1.
-  // Na tablet/desktop: koristimo currentIndex = slidesToShow; na mobil (1 slide) currentIndex = 0.
+
   let currentIndex = slidesToShow === 1 ? 0 : slidesToShow;
   const today = new Date();
   if (today >= promotionStartDate && today <= promotionEndDate) {
@@ -148,8 +145,7 @@ document.addEventListener("DOMContentLoaded", function() {
   console.log("Initial currentIndex:", currentIndex);
 
   function updateSlider() {
-    // Za mobil/tabla (slidesToShow === 1) ne primjenjujemo modulo – jer na tablet sada želimo 3 slidea
-    // Na desktop (slidesToShow === 3), updateSlider se radi po staroj logici.
+
     const sliderContainer = document.querySelector(".slider");
     const gap = parseFloat(getComputedStyle(document.querySelector(".slider-track")).gap) || 0;
     const cellWidth = (sliderContainer.clientWidth - (slidesToShow - 1) * gap) / slidesToShow;
@@ -165,14 +161,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
       const info = document.getElementById("slide-info");
       if (info && centerIndex < slides.length) {
-        const dayText = `${slides[centerIndex].dataset.day}. april`;
+        const dayText = `${slides[centerIndex].dataset.day}. </br>april`;
         const titleText = slides[centerIndex].dataset.title || "";
         info.innerHTML = slides[centerIndex].classList.contains("no-click")
           ? `<div class="slide-info"><span class="date">${dayText}</span></div>`
           : `<div class="slide-info"><span class="date">${dayText}</span><br><span class="title">${titleText}</span></div>`;
       }
     } else {
-      // Za mobil (slidesToShow === 1) – centralni slide zauzima cijeli prostor, a info uvijek prikazuje datum (i naslov ako nije zaključan)
       const info = document.getElementById("slide-info");
       if (info && slides.length > 0) {
         const firstIndex = currentIndex;
@@ -188,8 +183,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
   updateSlider();
 
-  // Infinite wrap-around – koristimo modulo operaciju za desktop (slidesToShow===3).
-  // Na tablet/desktop, validni indeksi su [3, 3+originalCount-1]; na mobil, [0, originalCount-1]
+
   track.addEventListener("transitionend", () => {
     slides = document.querySelectorAll(".slide");
     let minIndex, maxIndex;
@@ -261,3 +255,27 @@ window.addEventListener("resize", () => {
   }
 });
 });
+
+
+function autoSlide(swiperContainer) {
+  const wrapper = swiperContainer.querySelector(".swiper-wrapper");
+  const slides = swiperContainer.querySelectorAll(".swiper-slide");
+  const slideWidth = slides[0].offsetWidth;
+  let currentPosition = 0;
+
+  function moveSlides() {
+    currentPosition -= 1;
+    wrapper.style.transform = `translateX(${currentPosition}px)`;
+
+    if (Math.abs(currentPosition) >= slideWidth) {
+      currentPosition = 0;
+      wrapper.style.transition = "none";
+      wrapper.appendChild(wrapper.firstElementChild);
+      wrapper.style.transform = `translateX(${currentPosition}px)`;
+    }
+  }
+
+  setInterval(moveSlides, 30);
+}
+const swiperContainers = document.querySelectorAll(".swiper-container");
+swiperContainers.forEach(autoSlide);

@@ -147,7 +147,6 @@ $('a[href="' + fileName + '"]').parent().addClass('active');
 
 var swiper = new Swiper(".mySwiper", {
   slidesPerView: 15,
-  spaceBetween: 10,
   pagination: {
     el: ".swiper-pagination",
     clickable: true,
@@ -155,31 +154,29 @@ var swiper = new Swiper(".mySwiper", {
   breakpoints: {
     300: {
       slidesPerView: 3.5,
-      spaceBetween: 10,
+
     },
     480: {
       slidesPerView: 3.5,
-      spaceBetween: 10,
+
     },
 
     640: {
       slidesPerView: 3.5,
-      spaceBetween: 10,
+
     },
     768: {
       slidesPerView: 4.5,
-      spaceBetween: 10,
+
     },
     1024: {
       slidesPerView: 8.5,
-      spaceBetween: 10,
     },
   },
 });
 
 var swiper = new Swiper(".mySwiper1", {
   slidesPerView: 15,
-  spaceBetween: 10,
   pagination: {
     el: ".swiper-pagination",
     clickable: true,
@@ -187,15 +184,15 @@ var swiper = new Swiper(".mySwiper1", {
   breakpoints: {
     300: {
       slidesPerView: 4.5,
-      spaceBetween: 10,
+
     },
     480: {
       slidesPerView: 4.5,
-      spaceBetween: 20,
+ 
     },
     640: {
       slidesPerView: 4.5,
-      spaceBetween: 20,
+
     },
     768: {
       slidesPerView: 4.5,
@@ -203,11 +200,10 @@ var swiper = new Swiper(".mySwiper1", {
     },
     800: {
       slidesPerView: 6.5,
-      spaceBetween: 20,
+
     },
     1200: {
       slidesPerView: 12.5,
-      spaceBetween: 10,
     },
   },
 });
