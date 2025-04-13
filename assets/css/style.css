@@ -671,7 +671,7 @@ p {
   background-image: url(../images/Desk-bg.png);
   background-position: center;
   position: relative;
-  height: 100vh;
+  padding-bottom: 100px;
 }
 .slider-wrapper {
   width: 60%;
@@ -709,6 +709,41 @@ p {
 }
 .list-rules a {
   color: #63818f;
+}
+
+/* Info container */
+#slide-info {
+  text-align: center;
+  font-family: sans-serif;
+  color: #fff;
+}
+.slide-info {
+  position: relative;
+  z-index: 1000;
+  margin-top: -1.9rem;
+}
+#slide-info .date {
+  font-family: Inter;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 28px;
+  text-align: center;
+  color: #ffd964;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #25323A;
+  border-radius: 10px;
+  border: 2.24px solid #FED863;
+  text-transform: uppercase;
+}
+#slide-info .title {
+  font-family: Inter;
+  font-weight: 800;
+  font-style: italic;
+  font-size: 32px;
+  line-height: 32px;
+  text-align: center;
+  color: #ffffff;
 }
 
 /*PRAVILA*/
@@ -1433,6 +1468,7 @@ footer {
 .payments-icons {
   width: 100%;
   overflow: hidden;
+  z-index: 0;
 }
 .social-networks {
   display: flex;
@@ -1501,7 +1537,7 @@ footer {
   width: 20%;
   height: 22%;
   background: linear-gradient(to left, rgba(76, 0, 0, 0.9), transparent);
-  z-index: 10;
+  z-index: 0;
 }
 .sponsorships-icons::before {
   content: "";
@@ -1509,7 +1545,7 @@ footer {
   width: 10%;
   height: 12%;
   background: linear-gradient(to right, rgba(76, 0, 0, 0.9), transparent);
-  z-index: 10;
+  z-index: 0;
 }
 .sponsorships-text h3 {
   width: 100%;
@@ -1533,6 +1569,7 @@ footer {
 .sponsorships-icons {
   width: 100%;
   overflow: hidden;
+  z-index: 0;
 }
 .links {
   display: flex;
@@ -1593,7 +1630,7 @@ footer {
   height: 100%;
   background: linear-gradient(to right, rgba(76, 0, 0, 0.9), transparent);
 
-  z-index: 10;
+  z-index: 0;
 }
 .payments-icons::before {
   content: "";
@@ -1604,7 +1641,7 @@ footer {
   height: 100%;
   background: linear-gradient(to left, rgba(76, 0, 0, 0.9), transparent);
 
-  z-index: 10;
+  z-index: 0;
 }
 .payments-icons .swiper-slide img {
   display: block;
@@ -1664,12 +1701,23 @@ footer {
     margin-bottom: 230px;
     max-width: 100%;
   }
+  #slide-info {
+    margin-top: -4.9rem;
+  }
 }
 @media screen and (max-width: 1400px) {
-  .calendar-title-2 {
-    font-size: 60px;
-    line-height: 62px;
+  .calendar-wrapper {
+    width: 60%;
   }
+  .calendar-title {
+    font-size: 90px;
+    line-height: 92%;
+  }
+  .calendar-title-2 {
+    font-size: 30px;
+    line-height: 32px;
+  }
+
   .copyright {
     padding: 20px 0;
   }
@@ -1831,6 +1879,7 @@ footer {
     padding: 15px;
     width: 700px;
   }
+ 
 }
 
 @media screen and (max-width: 768px) {
@@ -3249,7 +3298,12 @@ footer {
 @media (min-width: 480px) {
   .slider-track {
     grid-auto-columns: calc((100% - 40px) / 3);
+    grid-auto-rows: 490px;
     gap: 20px;
+  }
+  .slide-info {
+    position: relative;
+    z-index: unset;
   }
 }
 /* Mobil (<480px) */
@@ -3258,7 +3312,17 @@ footer {
     grid-auto-columns: 100%;
     gap: 0;
   }
-
+  #slide-info {
+    margin-top: -1.9rem;
+  }
+  #slide-info .title {
+    font-size: 26px;
+    line-height: 30px;
+  }
+  .slide-info {
+    position: relative;
+    z-index: 1000;
+  }
 }
 
 /* Slide osnovni stilovi */
@@ -3324,40 +3388,6 @@ footer {
 
 }
 
-/* Info container */
-#slide-info {
-  text-align: center;
-  font-family: sans-serif;
-  color: #fff;
-}
-.slide-info {
-  position: relative;
-  z-index: 1000;
-  margin-top: -30px;
-}
-#slide-info .date {
-  font-family: Inter;
-  font-weight: 600;
-  font-size: 17px;
-  line-height: 28px;
-  text-align: center;
-  color: #ffd964;
-  margin-bottom: 10px;
-  padding: 10px;
-  background: #25323A;
-  border-radius: 10px;
-  border: 2.24px solid #FED863;
-  text-transform: uppercase;
-}
-#slide-info .title {
-  font-family: Inter;
-  font-weight: 800;
-  font-style: italic;
-  font-size: 32px;
-  line-height: 32px;
-  text-align: center;
-  color: #ffffff;
-}
 
 /* Strelice – samo za desktop (širina ≥ 769px) */
 @media (min-width: 769px) {
@@ -3393,6 +3423,7 @@ footer {
   .slider-wrapper {
     width: 100%;
   }
+ 
 }
 
 

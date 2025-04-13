@@ -1,4 +1,5 @@
 import promotions from "./promotions.js";
+import specialPromotion from "./specialPomotion.js";
     
 let isAnimating = false;
 function togglePopup() {
@@ -35,10 +36,13 @@ function generateCalendarSlider() {
   const today = new Date();
   const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
   let currentDate = new Date(promotionStartDate);
+  
   while (currentDate <= promotionEndDate) {
     const dayNumber = currentDate.getDate();
-    const promoIndex = (dayNumber - promotionStartDate.getDate()) % promotions.length;
-    const promo = promotions[promoIndex];
+    // Ako je dan 30, koristi specijalnu promociju, inače običnu iz niza promotions.
+    const promo = dayNumber === 30 
+                  ? specialPromotion 
+                  : promotions[(dayNumber - promotionStartDate.getDate()) % promotions.length];
 
     const slide = document.createElement("div");
     slide.classList.add("slide");
@@ -49,10 +53,11 @@ function generateCalendarSlider() {
     slideBg.classList.add("slide-bg");
     slideBg.style.backgroundImage = `url(${promo.imageBox})`;
     slide.appendChild(slideBg);
-
+  
     if (currentDate.getTime() > todayMidnight.getTime()) {
       slide.classList.add("no-click");
     }
+
     sliderTrack.appendChild(slide);
     currentDate.setDate(currentDate.getDate() + 1);
   }
@@ -79,14 +84,15 @@ function cloneSlides(slidesToShow) {
 document.querySelector(".slider-track").addEventListener("click", function(e) {
   const slide = e.target.closest(".slide");
   if (!slide) return;
-  if (window.innerWidth >= 769) {
-    if (!slide.classList.contains("center")) return;
-  } else {
 
-  }
   const dayNumber = parseInt(slide.dataset.day, 10);
-  const promoIndex = (dayNumber - promotionStartDate.getDate()) % promotions.length;
-  const promo = promotions[promoIndex];
+  let promo;
+  if (dayNumber === 30) {
+    promo = specialPromotion;
+  } else {
+    promo = promotions[(dayNumber - promotionStartDate.getDate()) % promotions.length];
+  }
+
   const popupContent = `
     <div class="header-flex">
       <h2><i>${promo.title}</i></h2>
@@ -125,6 +131,7 @@ document.querySelector(".slider-track").addEventListener("click", function(e) {
   });
   togglePopup();
 });
+
 
 document.addEventListener("DOMContentLoaded", function() {
   generateCalendarSlider();
