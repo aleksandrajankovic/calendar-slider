@@ -2060,7 +2060,7 @@ color: #fff;
   }
   .calendar-title {
     font-size: 64px;
-    line-height: normal;
+    line-height: 66px;
   }
 }
 @media screen and (max-width: 440px) {
