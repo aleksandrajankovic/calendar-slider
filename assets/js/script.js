@@ -25,7 +25,7 @@ function togglePopup() {
 window.togglePopup = togglePopup;
 
 /* Datum promocije */
-const promotionStartDate = new Date(2025, 3, 15);
+const promotionStartDate = new Date(2025, 3, 16);
 const promotionEndDate = new Date(2025, 3, 30);
 const originalCount =
   promotionEndDate.getDate() - promotionStartDate.getDate() + 1;
@@ -34,29 +34,39 @@ const originalCount =
     const sliderTrack = document.querySelector(".slider-track");
     sliderTrack.innerHTML = "";
     const today = new Date();
-    const todayMidnight = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+    const todayMidnight = new Date(
+      today.getFullYear(),
+      today.getMonth(),
+      today.getDate()
+    );
     let currentDate = new Date(promotionStartDate);
-    
+  
     while (currentDate <= promotionEndDate) {
       const dayNumber = currentDate.getDate();
-      const promo = dayNumber === 30 
-                    ? specialPromotion 
-                    : promotions[(dayNumber - promotionStartDate.getDate()) % promotions.length];
+  
+      let dayOfWeek = currentDate.getDay();
+      if (dayOfWeek === 0) dayOfWeek = 7;
+  
+      const promo =
+        dayNumber === 30
+          ? specialPromotion
+          : promotions[(dayOfWeek - 1) % promotions.length];
   
       const slide = document.createElement("div");
       slide.classList.add("slide");
       slide.dataset.day = dayNumber;
+      slide.dataset.dayOfWeek = dayOfWeek;
       slide.dataset.title = promo.title;
   
       const slideBg = document.createElement("div");
       slideBg.classList.add("slide-bg");
       slideBg.style.backgroundImage = `url(${promo.imageBox})`;
       slide.appendChild(slideBg);
-    
+  
       if (currentDate.getTime() > todayMidnight.getTime() && dayNumber !== 30) {
         slide.classList.add("no-click");
       }
-      
+  
       sliderTrack.appendChild(slide);
       currentDate.setDate(currentDate.getDate() + 1);
     }
