@@ -318,7 +318,7 @@ p {
 }
 .navbar-area.sticky {
   background: linear-gradient(90deg, #a6080e 0%, #d11101 100%);
-  z-index: 999;
+  z-index: 10000;
   position: fixed;
   -webkit-box-shadow: 0px 10px 25px 0px rgba(18, 18, 18, 0.05);
   -moz-box-shadow: 0px 10px 25px 0px rgba(18, 18, 18, 0.05);
