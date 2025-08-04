@@ -25,8 +25,8 @@ function togglePopup() {
 window.togglePopup = togglePopup;
 
 /* Datum promocije */
-const promotionStartDate = new Date(2025, 3, 16);
-const promotionEndDate = new Date(2025, 3, 30);
+const promotionStartDate = new Date(2025,7, 1);
+const promotionEndDate = new Date(2025, 7, 31);
 const originalCount =
   promotionEndDate.getDate() - promotionStartDate.getDate() + 1;
 
@@ -44,8 +44,7 @@ const originalCount =
     while (currentDate <= promotionEndDate) {
       const dayNumber = currentDate.getDate();
   
-      let dayOfWeek = currentDate.getDay();
-      if (dayOfWeek === 0) dayOfWeek = 7;
+      let   dayOfWeek = currentDate.getDay() || 7;
   
       const promo =
         dayNumber === 30
@@ -63,7 +62,7 @@ const originalCount =
       slideBg.style.backgroundImage = `url(${promo.imageBox})`;
       slide.appendChild(slideBg);
   
-      if (currentDate.getTime() > todayMidnight.getTime() && dayNumber !== 30) {
+      if (currentDate.getTime() > todayMidnight.getTime()) {
         slide.classList.add("no-click");
       }
   
@@ -152,14 +151,18 @@ document.addEventListener("DOMContentLoaded", function () {
   const track = document.querySelector(".slider-track");
   let slides = document.querySelectorAll(".slide");
 
-  let currentIndex = slidesToShow === 1 ? 0 : slidesToShow;
-  const today = new Date();
-  if (today >= promotionStartDate && today <= promotionEndDate) {
-    const dayOffset = today.getDate() - promotionStartDate.getDate();
-    currentIndex =
-      slidesToShow === 1 ? dayOffset : slidesToShow + dayOffset - 1;
-  }
-  console.log("Initial currentIndex:", currentIndex);
+  const originalSlides = Array.from(slides)
+  .filter(s => !s.classList.contains("clone"));
+const todayDay       = new Date().getDate();
+let   realIndex      =
+  originalSlides.findIndex(s => +s.dataset.day === todayDay);
+if (realIndex < 0) realIndex = 0;
+
+// if mobile: show that slide itself; if desktop: center it (shift left by slidesToShow-1)
+let currentIndex = slidesToShow === 1
+  ? realIndex
+  : realIndex + (slidesToShow - 1);
+console.log("Initial currentIndex:", currentIndex);
 
   function updateSlider() {
     const sliderContainer = document.querySelector(".slider");
@@ -187,7 +190,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       const info = document.getElementById("slide-info");
       if (info && centerIndex < slides.length) {
-        const dayText = `<span class="day-number">${slides[centerIndex].dataset.day}. </span></br>april`;
+        const dayText = `<span class="day-number">${slides[centerIndex].dataset.day}. </span></br>avgust`;
         const titleText = slides[centerIndex].dataset.title || "";
         info.innerHTML = slides[centerIndex].classList.contains("no-click")
           ? `<div class="slide-info"><span class="date">${dayText}</span></div>`
