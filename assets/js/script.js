@@ -26,7 +26,7 @@ window.togglePopup = togglePopup;
 
 /* Datum promocije */
 const promotionStartDate = new Date(2025,9, 1);
-const promotionEndDate = new Date(2025, 9, 32);
+const promotionEndDate = new Date(2025, 9, 31);
 const originalCount =
   promotionEndDate.getDate() - promotionStartDate.getDate() + 1;
 
@@ -190,7 +190,7 @@ console.log("Initial currentIndex:", currentIndex);
 
       const info = document.getElementById("slide-info");
       if (info && centerIndex < slides.length) {
-        const dayText = `<span class="day-number">${slides[centerIndex].dataset.day}. </span></br>septembar`;
+        const dayText = `<span class="day-number">${slides[centerIndex].dataset.day}. </span></br>oktobar`;
         const titleText = slides[centerIndex].dataset.title || "";
         info.innerHTML = slides[centerIndex].classList.contains("no-click")
           ? `<div class="slide-info"><span class="date">${dayText}</span></div>`
