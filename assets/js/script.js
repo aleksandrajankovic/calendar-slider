@@ -26,7 +26,7 @@ window.togglePopup = togglePopup;
 
 /* Datum promocije */
 const promotionStartDate = new Date(2025,7, 1);
-const promotionEndDate = new Date(2025, 7, 31);
+const promotionEndDate = new Date(2025, 11, 32);
 const originalCount =
   promotionEndDate.getDate() - promotionStartDate.getDate() + 1;
 
